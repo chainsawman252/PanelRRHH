@@ -1,0 +1,532 @@
+
+/**
+ * Professional Dashboard Styles
+ * 
+ * A modern, accessible, and responsive dashboard with glassmorphism effects,
+ * smooth animations, and comprehensive data visualization components.
+ * 
+ * @author Professional CSS Team
+ * @version 2.0
+ * @last-modified 2025-01-15
+ * @license MIT
+ */
+
+/* CSS Custom Properties for consistent theming */
+:root {
+  /* Color palette - primary */
+  --color-primary-50: #f0fdfa;
+  --color-primary-100: #ccfbf1;
+  --color-primary-200: #99f6e4;
+  --color-primary-300: #5eead4;
+  --color-primary-400: #2dd4bf;
+  --color-primary-500: #0e635a;
+  --color-primary-600: #0d4d46;
+  --color-primary-700: #0f3b37;
+  --color-primary-800: #112f2d;
+  --color-primary-900: #132624;
+
+  /* Color palette - secondary */
+  --color-secondary-50: #f0fdf7;
+  --color-secondary-100: #dcfce7;
+  --color-secondary-200: #bbf7d0;
+  --color-secondary-300: #86efac;
+  --color-secondary-400: #4ade80;
+  --color-secondary-500: #125e41;
+  --color-secondary-600: #0d4531;
+  --color-secondary-700: #0f3a2a;
+  --color-secondary-800: #112e24;
+  --color-secondary-900: #132621;
+
+  /* Semantic colors */
+  --color-text-primary: #f8fafc;
+  --color-text-secondary: #cbd5e1;
+  --color-text-muted: #94a3b8;
+  --color-text-disabled: #64748b;
+  --color-text-error: #ef4444;
+  --color-text-success: #10b981;
+  --color-text-warning: #f59e0b;
+  --color-text-info: #3b82f6;
+
+  /* Background colors */
+  --color-bg-card: rgba(30, 41, 59, 0.85);
+  --color-bg-input: rgba(255, 255, 255, 0.03);
+  --color-bg-overlay: rgba(0, 0, 0, 0.65);
+  --color-bg-modal: rgba(15, 23, 42, 0.95);
+
+  /* Border colors */
+  --color-border-card: rgba(255, 255, 255, 0.08);
+  --color-border-input: rgba(255, 255, 255, 0.08);
+  --color-border-focus: rgba(14, 99, 90, 0.4);
+  --color-border-error: rgba(239, 68, 68, 0.3);
+  --color-border-success: rgba(16, 185, 129, 0.3);
+
+  /* Border radii */
+  --radius-xs: 4px;
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  --radius-2xl: 20px;
+  --radius-3xl: 24px;
+  --radius-full: 9999px;
+
+  /* Shadows */
+  --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.1);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+  --shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.15);
+  --shadow-2xl: 0 25px 50px rgba(0, 0, 0, 0.25);
+  --shadow-inner: inset 0 2px 4px rgba(0, 0, 0, 0.06);
+
+  /* Spacing scale */
+  --spacing-0: 0px;
+  --spacing-0-5: 2px;
+  --spacing-1: 4px;
+  --spacing-1-5: 6px;
+  --spacing-2: 8px;
+  --spacing-2-5: 10px;
+  --spacing-3: 12px;
+  --spacing-3-5: 14px;
+  --spacing-4: 16px;
+  --spacing-5: 20px;
+  --spacing-6: 24px;
+  --spacing-7: 28px;
+  --spacing-8: 32px;
+  --spacing-9: 36px;
+  --spacing-10: 40px;
+  --spacing-11: 44px;
+  --spacing-12: 48px;
+  --spacing-14: 56px;
+  --spacing-16: 64px;
+  --spacing-20: 80px;
+  --spacing-24: 96px;
+  --spacing-28: 112px;
+  --spacing-32: 128px;
+  --spacing-36: 144px;
+  --spacing-40: 160px;
+  --spacing-44: 176px;
+  --spacing-48: 192px;
+  --spacing-52: 208px;
+  --spacing-56: 224px;
+  --spacing-60: 240px;
+  --spacing-64: 256px;
+  --spacing-72: 288px;
+  --spacing-80: 320px;
+  --spacing-96: 384px;
+
+  /* Typography */
+  --font-family-sans: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-family-mono: "SF Mono", "Monaco", "Inconsolata", "Fira Mono", "Droid Sans Mono", "Source Code Pro", monospace;
+  
+  --font-size-xs: 0.75rem;
+  --font-size-sm: 0.875rem;
+  --font-size-base: 1rem;
+  --font-size-lg: 1.125rem;
+  --font-size-xl: 1.25rem;
+  --font-size-2xl: 1.5rem;
+  --font-size-3xl: 1.875rem;
+  --font-size-4xl: 2.25rem;
+  --font-size-5xl: 3rem;
+  --font-size-6xl: 3.75rem;
+
+  --font-weight-thin: 100;
+  --font-weight-extralight: 200;
+  --font-weight-light: 300;
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+  --font-weight-extrabold: 800;
+  --font-weight-black: 900;
+
+  /* Line heights */
+  --line-height-none: 1;
+  --line-height-tight: 1.25;
+  --line-height-snug: 1.375;
+  --line-height-normal: 1.5;
+  --line-height-relaxed: 1.625;
+  --line-height-loose: 2;
+
+  /* Letter spacing */
+  --letter-spacing-tighter: -0.05em;
+  --letter-spacing-tight: -0.025em;
+  --letter-spacing-normal: 0em;
+  --letter-spacing-wide: 0.025em;
+  --letter-spacing-wider: 0.05em;
+  --letter-spacing-widest: 0.1em;
+
+  /* Transitions */
+  --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-normal: 200ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-slow: 300ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-ease: 250ms ease;
+  --transition-bounce: 300ms cubic-bezier(0.68, -0.55, 0.265, 1.55);
+
+  /* Z-index scale */
+  --z-dropdown: 1000;
+  --z-sticky: 1020;
+  --z-fixed: 1030;
+  --z-modal-backdrop: 1040;
+  --z-modal: 1050;
+  --z-popover: 1060;
+  --z-tooltip: 1070;
+}
+
+/* Main container */
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 var(--spacing-4);
+}
+
+/* Dashboard top section */
+.dashboardTop {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-3);
+  margin-bottom: var(--spacing-6);
+}
+
+/* Dashboard title */
+.dashboardTitle {
+  margin: 0;
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+  letter-spacing: var(--letter-spacing-tight);
+  line-height: var(--line-height-tight);
+}
+
+/* Dashboard subtitle */
+.dashboardSub {
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-sm);
+  line-height: var(--line-height-relaxed);
+}
+
+/* Dashboard controls */
+.dashboardControls {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2-5);
+  flex-wrap: wrap;
+}
+
+/* Small muted text */
+.smallMuted {
+  color: var(--color-text-muted);
+  font-size: var(--font-size-sm);
+  line-height: var(--line-height-normal);
+}
+
+/* Map hero component */
+.mapHero {
+  width: 100%;
+  height: 320px;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-border-card);
+  box-shadow: var(--shadow-2xl);
+  overflow: hidden;
+  position: relative;
+  isolation: isolate;
+}
+
+/* Subtle entrance for the map */
+.mapHero {
+  transform-origin: center;
+  animation: mapAppear var(--transition-slow) both;
+}
+
+/* Map entrance animation */
+@keyframes mapAppear {
+  from { 
+    opacity: 0; 
+    transform: translateY(8px) scale(0.995); 
+  }
+  to { 
+    opacity: 1; 
+    transform: translateY(0) scale(1); 
+  }
+}
+
+/* Dashboard bottom section */
+.dashboardBottom {
+  display: grid;
+  grid-template-columns: 1fr 360px;
+  gap: var(--spacing-4-5);
+  margin-top: var(--spacing-6);
+}
+
+/* Dashboard card */
+.dashboardCard {
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border-card);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-4);
+  box-shadow: var(--shadow-md);
+  transition: all var(--transition-normal);
+  will-change: transform, box-shadow;
+  backdrop-filter: blur(10px);
+}
+
+/* Fichajes section */
+.fichajesSection {
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Dashboard card hover effect */
+.dashboardCard:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-2xl);
+}
+
+/* Fichajes table */
+.fichajesTable {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--font-size-sm);
+  line-height: var(--line-height-relaxed);
+}
+
+/* Table header */
+.fichajesTable thead th {
+  text-align: left;
+  padding: var(--spacing-2) var(--spacing-3);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-secondary);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+  text-transform: uppercase;
+  letter-spacing: var(--letter-spacing-wide);
+  font-size: var(--font-size-xs);
+}
+
+/* Table rows */
+.fichajesRow tr td {
+  padding: var(--spacing-2-5) var(--spacing-3);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.02);
+  vertical-align: middle;
+  transition: background-color var(--transition-fast);
+}
+
+/* Zebra rows */
+.fichajesRow tr:nth-child(odd) {
+  background: linear-gradient(180deg, 
+    rgba(255, 255, 255, 0.005), 
+    rgba(255, 255, 255, 0.002));
+}
+
+/* Row hover effect */
+.fichajesRow tr:hover {
+  background: linear-gradient(90deg, 
+    rgba(14, 99, 90, 0.02), 
+    rgba(255, 255, 255, 0.01));
+  transform: translateX(2px);
+  transition: all var(--transition-fast);
+}
+
+/* Fichaje avatar */
+.fichajeAvatar {
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-lg);
+  background: linear-gradient(135deg, 
+    var(--color-primary-500), 
+    var(--color-secondary-500));
+  color: white;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: var(--font-weight-bold);
+  margin-right: var(--spacing-2-5);
+  box-shadow: var(--shadow-md);
+  transition: all var(--transition-fast);
+  flex-shrink: 0;
+}
+
+/* Fichaje avatar active state */
+.fichajeAvatar:active {
+  transform: scale(0.98);
+}
+
+/* Indicators and graphs section */
+.indicatorsGraphs {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-3);
+}
+
+/* Card component */
+.card {
+  background: linear-gradient(180deg, 
+    rgba(255, 255, 255, 0.02), 
+    rgba(255, 255, 255, 0.01));
+  border-radius: var(--radius-md);
+  padding: var(--spacing-4);
+}
+
+/* Button component */
+.btn {
+  padding: var(--spacing-2-5) var(--spacing-3);
+  border-radius: var(--radius-md);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  background: linear-gradient(135deg, 
+    var(--color-primary-500), 
+    var(--color-secondary-500));
+  color: white;
+  font-weight: var(--font-weight-bold);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-1);
+  text-align: center;
+  vertical-align: middle;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Button hover effect */
+.btn:hover { 
+  transform: translateY(-3px); 
+  box-shadow: var(--shadow-xl); 
+}
+
+/* Button active effect */
+.btn:active {
+  transform: translateY(-1px);
+}
+
+/* Card entrance animation */
+@keyframes cardPop {
+  from { 
+    opacity: 0; 
+    transform: translateY(10px) scale(0.997); 
+  }
+  to { 
+    opacity: 1; 
+    transform: translateY(0) scale(1); 
+  }
+}
+
+/* Apply entrance animation to dashboard cards */
+.dashboardCard { 
+  animation: cardPop var(--transition-slow) both; 
+}
+
+/* Responsive design for mobile */
+@media (max-width: 880px) {
+  .dashboardBottom {
+    grid-template-columns: 1fr;
+  }
+
+  .mapHero {
+    height: 220px;
+  }
+
+  .dashboardControls {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .fichajesTable {
+    font-size: var(--font-size-xs);
+  }
+
+  .fichajesTable thead th {
+    padding: var(--spacing-1) var(--spacing-2);
+  }
+
+  .fichajesRow tr td {
+    padding: var(--spacing-1-5) var(--spacing-2);
+  }
+}
+
+/* Responsive design for tablets */
+@media (min-width: 881px) and (max-width: 1024px) {
+  .dashboardBottom {
+    grid-template-columns: 2fr 1fr;
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  
+  .mapHero, 
+  .dashboardCard, 
+  .fichajesRow tr:hover, 
+  .btn, 
+  .fichajeAvatar {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  :root {
+    --color-bg-card: #000000;
+    --color-border-card: #ffffff;
+    --shadow-2xl: 0 25px 50px rgba(0, 0, 0, 0.5);
+  }
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: light) {
+  :root {
+    --color-text-primary: #1e293b;
+    --color-text-secondary: #64748b;
+    --color-text-muted: #94a3b8;
+    --color-bg-card: rgba(255, 255, 255, 0.85);
+    --color-bg-input: rgba(0, 0, 0, 0.05);
+  }
+}
+
+/* Print styles */
+@media print {
+  .dashboardCard {
+    box-shadow: none !important;
+    border: 1px solid #000 !important;
+    background: white !important;
+    color: black !important;
+  }
+  
+  .btn {
+    background: #000 !important;
+    color: white !important;
+  }
+}
+
+/* Accessibility improvements */
+.dashboardCard:focus-within {
+  outline: 2px solid var(--color-primary-400);
+  outline-offset: 2px;
+}
+
+/* Scrollbar styling */
+.fichajesSection::-webkit-scrollbar {
+  height: 6px;
+}
+
+.fichajesSection::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.1);
+}
+
+.fichajesSection::-webkit-scrollbar-thumb {
+  background: rgba(14, 99, 90, 0.3);
+  border-radius: 3px;
+}
+
+.fichajesSection::-webkit-scrollbar-thumb:hover {
+  background: rgba(14, 99, 90, 0.5);
+}
