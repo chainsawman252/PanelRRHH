@@ -1,0 +1,168 @@
+:root{
+  --bg:#0f1724;
+  --surface:#0f2430;
+  --bg-2: #071221;
+  --muted:#94a3b8;
+  --accent:#0f5132;
+  --accent-2:#1f7a5a;
+  --card:#0b1a22;
+  --card-2:#0e2a35;
+  --card-3: #06131a;
+  --auth-card-end: #071e26;
+  --text: #e6eef6;
+  --gloss-start: rgba(255,255,255,0.02);
+  --gloss-end: rgba(255,255,255,0.01);
+  --glass: rgba(255,255,255,0.03);
+  --border: rgba(255,255,255,0.06);
+}
+html,body,#root{height:100%;}
+html{box-sizing:border-box;-webkit-text-size-adjust:100%;text-size-adjust:100%;}
+*,*::before,*::after{box-sizing:inherit}
+body{
+  margin:0; font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  background: linear-gradient(180deg,var(--bg), var(--bg-2) 140%);
+  color:var(--text);
+  -webkit-font-smoothing:antialiased;
+}
+.app-layout{display:flex;min-height:100vh}
+.sidebar{width:220px;background:linear-gradient(180deg,var(--card),var(--card-2));padding:28px 16px;border-right:1px solid var(--border);box-shadow:2px 0 18px rgba(2,6,23,0.6)}
+.brand{font-weight:700;color:var(--accent);font-size:20px;margin-bottom:18px}
+.nav{display:flex;flex-direction:column;gap:12px}
+.nav button{background:transparent;border:0;color:var(--muted);padding:10px 12px;border-radius:8px;text-align:left;cursor:pointer}
+.nav button.active, .nav button:hover{background:linear-gradient(90deg, rgba(15,81,50,0.12), rgba(31,122,90,0.06));color:var(--text)}
+.main{flex:1;padding:28px}
+.page-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px}
+.page-title{font-size:32px;font-weight:700}
+.card{background:var(--glass);border:1px solid var(--border);padding:18px;border-radius:12px;box-shadow:0 6px 20px rgba(2,6,23,0.5)}
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
+.full{grid-column:1/-1}
+.auth-page{display:flex;min-height:100vh;align-items:center;justify-content:center;background:linear-gradient(180deg,var(--bg),var(--bg-2))}
+.auth-card{width:420px;background:linear-gradient(180deg,var(--card),var(--auth-card-end));border:1px solid var(--border);padding:28px;border-radius:12px}
+.form-input{width:100%;padding:10px 12px;border-radius:8px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:inherit}
+.btn{background:var(--accent);border:0;color:white;padding:10px 14px;border-radius:8px;cursor:pointer}
+.muted{color:var(--muted)}
+.table{width:100%;border-collapse:collapse}
+.table th,.table td{padding:10px;border-bottom:1px solid var(--border)}
+.empty{padding:40px;text-align:center;color:var(--muted)}
+
+/* Dashboard specific styles */
+.dashboard-layout{display:flex;gap:24px;align-items:flex-start}
+.dashboard-card{flex:0 0 560px;background:linear-gradient(180deg,var(--card-2),var(--card-3));border:1px solid var(--border);padding:26px;border-radius:14px;box-shadow:0 10px 30px rgba(2,6,23,0.6)}
+.dashboard-main{flex:1;min-height:80vh;padding:26px}
+.dashboard-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px}
+.dashboard-title{font-size:34px;font-weight:800;letter-spacing:-0.5px}
+.dashboard-sub{color:var(--muted);font-size:14px}
+.dashboard-controls{display:flex;gap:16px;align-items:center;margin-bottom:12px;flex-wrap:wrap}
+  .map-large{height:520px;border-radius:12px;overflow:hidden;border:1px solid var(--border)}
+  .map-hero{height:460px;border-radius:12px;overflow:hidden;border:1px solid var(--border);margin-bottom:10px}
+.fichajes-table{width:100%;border-collapse:separate;border-spacing:0 8px}
+.fichajes-table th{color:var(--muted);text-align:left;padding:8px 12px}
+.fichajes-table td{background:linear-gradient(90deg, var(--gloss-start), var(--gloss-end));padding:12px;border-radius:8px}
+.fichajes-row{display:table-row-group}
+.fichaje-avatar{width:36px;height:36px;border-radius:50%;background:var(--accent-2);display:inline-flex;align-items:center;justify-content:center;color:white;font-weight:700;margin-right:8px}
+.small-muted{color:var(--muted);font-size:13px}
+
+@media (max-width: 980px){
+  .dashboard-layout{flex-direction:column}
+  .dashboard-card{width:100%}
+  .map-large{height:360px}
+  .map-hero{height:360px}
+}
+
+/* Bottom layout */
+.dashboard-bottom{display:flex;flex-direction:column;gap:20px}
+.fichajes-section{width:100%}
+.indicators-graphs{display:grid;grid-template-columns:360px 1fr;gap:20px}
+@media (max-width:980px){
+  .indicators-graphs{grid-template-columns:1fr}
+}
+
+/* Avoid visual overlap between table 'cards' and adjacent panels */
+.fichajes-table td{position:relative;z-index:1}
+.dashboard-card{overflow:visible}
+
+/* Users panel and modal */
+.users-panel{background:linear-gradient(180deg,var(--card-2),var(--card-3));padding:18px;border-radius:12px;border:1px solid var(--border)}
+.users-table{width:100%;border-collapse:collapse}
+.users-table th,.users-table td{padding:10px;border-bottom:1px solid var(--border)}
+.user-actions{display:flex;gap:8px}
+.modal-backdrop{position:fixed;inset:0;background:rgba(2,6,23,0.6);display:flex;align-items:center;justify-content:center;z-index:1200}
+.modal-card{background:var(--card);padding:18px;border-radius:10px;border:1px solid var(--border);width:520px;box-shadow:0 10px 40px rgba(2,6,23,0.7)}
+.form-row{display:flex;gap:12px}
+.form-row .form-input{flex:1}
+.chip{padding:6px 8px;border-radius:999px;background:var(--glass);font-size:13px}
+
+/* Responsive enhancements */
+@media (max-width: 1120px){
+  .dashboard-controls{gap:20px}
+}
+
+@media (max-width: 880px){
+  /* stack controls and make them easier to tap */
+  .dashboard-controls{flex-direction:column;align-items:stretch}
+  .dashboard-controls select,
+  .dashboard-controls .btn{width:100%}
+}
+
+/* Users panel: allow horizontal scroll on narrow screens */
+.users-panel{overflow-x:auto;-webkit-overflow-scrolling:touch}
+.users-table{min-width:720px}
+@media (max-width: 520px){
+  .users-table{min-width:600px}
+}
+
+/* Light-mode support: preferencias del sistema o override manual via [data-theme="light"] */
+@media (prefers-color-scheme: light) {
+  :root{
+    --bg: #f6f8fa;
+    --surface: #ffffff;
+    --muted: #475569;
+    --accent: #0f5132;
+    --accent-2: #1f7a5a;
+    --card: #ffffff;
+    --card-2: #f1f5f9;
+    --text: #0b1320;
+    --glass: rgba(2,6,23,0.03);
+    --border: rgba(2,6,23,0.06);
+  }
+  body{
+    background: linear-gradient(180deg,var(--bg), #ffffff 140%);
+    color: var(--text, #0b1320);
+  }
+  /* Overwrite a few hard-coded dark stops used en componentes para una apariencia consistente */
+  .auth-card, .dashboard-card, .dashboard-main, .card, .modal-card {
+    background: linear-gradient(180deg,var(--card), var(--card-2));
+    border: 1px solid var(--border);
+    color: inherit;
+  }
+  .form-input{ border:1px solid rgba(2,6,23,0.06); background:transparent; color:inherit }
+  .modal-backdrop{ background: rgba(2,6,23,0.04) }
+}
+
+/* Manual override: data-theme attribute on <html> or <body> */
+:root[data-theme="light"]{
+  --bg: #f6f8fa;
+  --surface: #ffffff;
+  --muted: #475569;
+  --accent: #0f5132;
+  --accent-2: #1f7a5a;
+  --card: #ffffff;
+  --card-2: #f1f5f9;
+  --text: #0b1320;
+  --glass: rgba(2,6,23,0.03);
+  --border: rgba(2,6,23,0.06);
+}
+
+:root[data-theme="dark"]{
+  /* preserve existing dark values (kept minimal — original :root already sets these)
+     this selector allows toggling back to explicit dark mode if desired */
+  --bg:#0f1724;
+  --surface:#0f2430;
+  --muted:#94a3b8;
+  --accent:#0f5132;
+  --accent-2:#1f7a5a;
+  --card:#0b1a22;
+  --card-2:#0e2a35;
+  --glass: rgba(255,255,255,0.03);
+  --border: rgba(255,255,255,0.06);
+}

@@ -1,0 +1,693 @@
+/**
+ * Professional Signup Page Styles
+ * 
+ * A modern, accessible, and responsive signup form with glassmorphism effects,
+ * smooth animations, and comprehensive validation states.
+ */
+
+/* Root variables for consistent theming */
+:root {
+  --color-primary: #0e635a;
+  --color-primary-dark: #0a4d46;
+  --color-primary-light: #127d73;
+  --color-secondary: #125e41;
+  --color-secondary-dark: #0d4531;
+  --color-accent: #0e635a;
+  --color-accent-hover: #127d73;
+
+  --color-text-primary: #f8fafc;
+  --color-text-secondary: #94a3b8;
+  --color-text-muted: #64748b;
+  --color-text-error: #ef4444;
+  --color-text-success: #10b981;
+  --color-text-warning: #f59e0b;
+
+  --color-bg-card: rgba(30, 41, 59, 0.72);
+  --color-bg-input: rgba(255, 255, 255, 0.02);
+  --color-bg-overlay: rgba(0, 0, 0, 0.5);
+
+  --color-border-card: rgba(255, 255, 255, 0.04);
+  --color-border-input: rgba(255, 255, 255, 0.04);
+  --color-border-focus: rgba(14, 99, 90, 0.3);
+
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 18px;
+  --radius-xl: 20px;
+  --radius-2xl: 22px;
+
+  --shadow-sm: 0 4px 14px rgba(0, 0, 0, 0.2);
+  --shadow-md: 0 12px 36px rgba(0, 0, 0, 0.5);
+  --shadow-lg: 0 16px 46px rgba(2, 6, 23, 0.7);
+  --shadow-hover: 0 16px 46px rgba(2, 6, 23, 0.7);
+
+  --transition-fast: 180ms ease;
+  --transition-normal: 300ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --transition-slow: 420ms cubic-bezier(0.2, 0.9, 0.3, 1);
+
+  --font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-size-sm: 0.875rem;
+  --font-size-base: 1rem;
+  --font-size-lg: 1.125rem;
+  --font-size-xl: 1.25rem;
+  --font-size-2xl: 1.5rem;
+
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+
+  --spacing-xs: 4px;
+  --spacing-sm: 8px;
+  --spacing-md: 12px;
+  --spacing-lg: 16px;
+  --spacing-xl: 20px;
+  --spacing-2xl: 24px;
+  --spacing-3xl: 32px;
+  --spacing-4xl: 40px;
+  --spacing-5xl: 48px;
+}
+
+/* Base signup page container */
+.signupPage {
+  min-height: 100dvh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(var(--spacing-3xl), 5vh, var(--spacing-5xl)) var(--spacing-xl);
+  padding-inline: max(16px, env(safe-area-inset-left)) max(16px, env(safe-area-inset-right));
+  font-family: var(--font-family);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(135deg, 
+    rgba(14, 99, 90, 0.02) 0%, 
+    rgba(18, 94, 65, 0.01) 50%, 
+    rgba(14, 99, 90, 0.02) 100%);
+  overscroll-behavior: contain;
+  touch-action: manipulation;
+}
+
+/* Decorative background pattern */
+.signupPage::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: 
+    radial-gradient(ellipse at 50% 0%, rgba(14, 99, 90, 0.03) 0%, transparent 30%),
+    linear-gradient(45deg, 
+      rgba(14, 99, 90, 0.015) 0%, 
+      rgba(14, 99, 90, 0.007) 25%, 
+      transparent 50%, 
+      rgba(14, 99, 90, 0.007) 75%, 
+      rgba(14, 99, 90, 0.015) 100%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Logo styling */
+.logo {
+  width: 68px;
+  height: 68px;
+  object-fit: contain;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(2,6,23,0.25);
+  background: linear-gradient(135deg, var(--button-gradient-start), var(--button-gradient-end));
+}
+
+/* Main signup card with glassmorphism effect */
+.signupCard {
+  width: 100%;
+  max-width: 520px;
+  padding: var(--spacing-4xl);
+  border-radius: var(--radius-xl);
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border-card);
+  box-shadow: var(--shadow-md);
+  position: relative;
+  backdrop-filter: blur(14px) saturate(140%);
+  animation: cardEnter var(--transition-slow) both;
+  transition: transform var(--transition-normal);
+  z-index: 1;
+  will-change: transform, opacity;
+}
+
+/* Fallback when backdrop-filter is unsupported */
+@supports not ((-webkit-backdrop-filter: blur(10px)) or (backdrop-filter: blur(10px))) {
+  .signupCard {
+    background: rgba(30, 41, 59, 0.95);
+  }
+}
+
+/* Decorative border with gradient */
+.signupCard::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: calc(var(--radius-xl) + 2px);
+  background: linear-gradient(135deg, 
+    rgba(255, 255, 255, 0.08), 
+    rgba(255, 255, 255, 0.04));
+  -webkit-mask: linear-gradient(#fff, #fff) content-box, 
+                linear-gradient(#fff, #fff);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#fff, #fff) content-box, 
+        linear-gradient(#fff, #fff);
+  mask-composite: exclude;
+  padding: 1px;
+  z-index: -1;
+  pointer-events: none;
+}
+
+/* Hover effect for card */
+.signupCard:hover {
+  transform: translateY(-2px) scale(1.002);
+  box-shadow: var(--shadow-hover);
+}
+
+/* Page title styling */
+.pageTitle {
+  margin: 0 0 var(--spacing-lg) 0;
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+  text-align: center;
+  letter-spacing: -0.4px;
+  line-height: 1.3;
+  opacity: 0;
+  animation: textAppear var(--transition-slow) 140ms both;
+}
+
+/* Page subtitle styling */
+.pageSubtitle {
+  margin: var(--spacing-sm) 0 var(--spacing-xl) 0;
+  font-size: var(--font-size-lg);
+  color: var(--color-text-secondary);
+  text-align: center;
+  opacity: 0;
+  animation: textAppear var(--transition-slow) 180ms both;
+}
+
+/* Form column layout */
+.formColumn {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-lg);
+  margin-bottom: var(--spacing-lg);
+  /* Allow inputs to shrink properly on Safari/WebKit */
+  min-width: 0;
+}
+
+/* Base input styling */
+.formInput {
+  width: 100%;
+  max-width: 100%;
+  min-width: 0; /* Prevent overflow inside flex containers (Safari) */
+  box-sizing: border-box; /* Include padding/border in width calc */
+  -webkit-appearance: none;
+  appearance: none;
+  padding: 14px var(--spacing-lg);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border-input);
+  background: var(--color-bg-input);
+  color: var(--color-text-primary);
+  font-size: 16px; /* avoid iOS zoom */
+  outline: none;
+  transition: all var(--transition-normal);
+  position: relative;
+  backdrop-filter: blur(6px);
+  will-change: transform, box-shadow;
+}
+
+/* Placeholder styling */
+.formInput::placeholder {
+  color: var(--color-text-muted);
+  transition: color var(--transition-fast);
+}
+
+/* Input hover state */
+.formInput:hover:not(:focus) {
+  transform: translateY(-0.5px);
+  border-color: var(--color-text-secondary);
+}
+
+/* Input focus state */
+.formInput:focus {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px var(--color-border-focus);
+  transform: translateY(-1px);
+  background: var(--color-bg-input);
+}
+
+/* Focused placeholder styling */
+.formInput:focus::placeholder {
+  color: var(--color-text-secondary);
+  opacity: 0.7;
+}
+
+/* Visible focus outline */
+.formInput:focus-visible {
+  outline: 3px solid var(--color-border-focus);
+  outline-offset: 3px;
+}
+
+/* Input wrapper with toggle button */
+.inputWithToggle {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+/* Adjust input padding for toggle button */
+.inputWithToggle .formInput {
+  padding-right: 44px;
+  flex: 1 1 auto; /* Better flex sizing in Safari */
+  min-width: 0; /* Avoid input overflow */
+}
+
+/* Password toggle button */
+.pwToggle {
+  position: absolute;
+  right: var(--spacing-sm);
+  background: transparent;
+  border: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  color: var(--color-text-secondary);
+  transition: background var(--transition-fast), 
+              color var(--transition-fast), 
+              transform 120ms ease;
+  z-index: 2;
+}
+
+/* Toggle button hover state */
+.pwToggle:hover {
+  background: rgba(255, 255, 255, 0.02);
+  color: var(--color-text-primary);
+  transform: translateY(-1px);
+}
+
+/* Toggle button active state */
+.pwToggle:active {
+  transform: translateY(0);
+}
+
+/* Toggle button focus state */
+.pwToggle:focus-visible {
+  outline: 3px solid var(--color-border-focus);
+  outline-offset: 3px;
+}
+
+/* Button base styling */
+.btn {
+  padding: 14px var(--spacing-xl);
+  border-radius: var(--radius-md);
+  background: linear-gradient(135deg, 
+    var(--color-primary), 
+    var(--color-secondary));
+  color: #fff;
+  border: none;
+  font-weight: var(--font-weight-bold);
+  font-size: var(--font-size-base);
+  cursor: pointer;
+  box-shadow: 0 8px 28px rgba(14, 99, 90, 0.12);
+  transition: all var(--transition-normal);
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+  will-change: transform, box-shadow;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Button shimmer effect */
+.btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, 
+    transparent, 
+    rgba(255, 255, 255, 0.2), 
+    transparent);
+  transition: left 0.6s ease;
+  z-index: -1;
+}
+
+/* Button hover state */
+.btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-hover);
+  background: linear-gradient(135deg, 
+    var(--color-primary-light), 
+    var(--color-accent-hover));
+}
+
+/* Shimmer effect on hover */
+.btn:hover:not(:disabled)::before {
+  left: 100%;
+}
+
+/* Button active state */
+.btn:active:not(:disabled) {
+  transform: translateY(0) scale(0.98);
+  box-shadow: var(--shadow-sm);
+}
+
+/* Disabled button state */
+.btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+/* Message styling */
+.msg {
+  font-size: var(--font-size-lg);
+  margin-top: var(--spacing-sm);
+  opacity: 0;
+  transform: translateY(-8px);
+  animation: errorAppear 360ms ease-out 100ms both;
+}
+
+/* Error message styling */
+.error {
+  color: var(--color-text-error);
+}
+
+/* Success message styling */
+.success {
+  color: var(--color-text-success);
+}
+
+/* Warning message styling */
+.warning {
+  color: var(--color-text-warning);
+}
+
+/* Links row layout */
+.linksRow {
+  display: flex;
+  justify-content: center;
+  gap: var(--spacing-lg);
+  margin-top: var(--spacing-lg);
+}
+
+/* Link button styling */
+.linkButton {
+  background: transparent;
+  border: none;
+  color: var(--color-primary);
+  cursor: pointer;
+  font-weight: var(--font-weight-semibold);
+  font-size: var(--font-size-lg);
+  position: relative;
+  z-index: 1;
+  transition: all 200ms ease;
+}
+
+/* Link button underline effect */
+.linkButton::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: var(--color-primary);
+  transition: width 300ms ease;
+  z-index: -1;
+}
+
+/* Link button hover state */
+.linkButton:hover {
+  color: var(--color-accent-hover);
+}
+
+/* Link button underline on hover */
+.linkButton:hover::after {
+  width: 100%;
+}
+
+/* Link button focus state */
+.linkButton:focus-visible {
+  outline: 3px solid var(--color-border-focus);
+  outline-offset: 3px;
+}
+
+/* Card entry animation */
+@keyframes cardEnter {
+  from {
+    opacity: 0;
+    transform: translateY(20px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Text appearance animation */
+@keyframes textAppear {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Message appearance animation */
+@keyframes errorAppear {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Card exit animation */
+@keyframes cardExit {
+  from {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(20px) scale(0.98);
+  }
+}
+
+/* Responsive design for mobile */
+@media (max-width: 480px) {
+  .signupCard {
+    padding: var(--spacing-3xl) var(--spacing-2xl);
+    border-radius: var(--radius-lg);
+    margin: 0 var(--spacing-2xl);
+  }
+  
+  .pageTitle {
+    font-size: var(--font-size-xl);
+    margin-bottom: var(--spacing-lg);
+  }
+  
+  .pageSubtitle {
+    margin-bottom: var(--spacing-3xl);
+  }
+  
+  .formInput {
+    padding: 12px var(--spacing-md);
+  }
+  
+  .btn {
+    padding: 12px var(--spacing-lg);
+  }
+  
+  .linksRow {
+    flex-direction: column;
+    align-items: center;
+    gap: var(--spacing-md);
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .signupCard, 
+  .pageTitle, 
+  .msg {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+  
+  .formInput, 
+  .btn, 
+  .linkButton {
+    transition: none;
+  }
+  
+  .btn::before {
+    display: none;
+  }
+  
+  .formInput:hover:not(:focus) {
+    transform: none;
+  }
+  
+  .btn:hover:not(:disabled) {
+    transform: none;
+  }
+  
+  .btn:active:not(:disabled) {
+    transform: none;
+  }
+  
+  .signupCard:hover {
+    transform: none;
+  }
+}
+
+/* Large screens: give a bit more room */
+@media (min-width: 1280px) {
+  .signupCard { max-width: 640px; }
+}
+
+/* Enhanced focus states */
+*:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+  border-radius: inherit;
+}
+
+/* Valid input state */
+.formInput.valid {
+  border-color: var(--color-text-success);
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
+}
+
+/* Invalid input state */
+.formInput.invalid {
+  border-color: var(--color-text-error);
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
+}
+
+/* Loading button state */
+.btn.loading {
+  position: relative;
+  pointer-events: none;
+}
+
+/* Loading spinner */
+.btn.loading::after {
+  content: '';
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  margin: auto;
+  border: 2px solid transparent;
+  border-top-color: #ffffff;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  right: 12px;
+}
+
+/* Spinner animation */
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Button pulse animation */
+.btn.pulse {
+  animation: pulse 2s infinite;
+}
+
+/* Pulse animation keyframes */
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(14, 99, 90, 0.4);
+  }
+  70% {
+    box-shadow: 0 0 0 10px rgba(14, 99, 90, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(14, 99, 90, 0);
+  }
+}
+
+/* Fade transitions */
+.fade-enter {
+  opacity: 0;
+  transform: translateY(8px);
+}
+
+.fade-enter-active {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 260ms cubic-bezier(0.2, 0.9, 0.3, 1), 
+              transform 260ms cubic-bezier(0.2, 0.9, 0.3, 1);
+}
+
+.fade-exit {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.fade-exit-active {
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 220ms ease-in, 
+              transform 220ms ease-in;
+}
+
+/* Reduced motion for fade transitions */
+@media (prefers-reduced-motion: reduce) {
+  .fade-enter-active,
+  .fade-exit-active {
+    transition: none !important;
+    transform: none !important;
+  }
+}
+
+/* Accessibility improvements */
+.signupPage:focus-within {
+  scroll-behavior: smooth;
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  :root {
+    --color-bg-card: rgba(0, 0, 0, 0.9);
+    --color-border-card: #ffffff;
+    --color-border-input: #ffffff;
+  }
+}
+
+/* Dark mode support (if not already in dark mode) */
+@media (prefers-color-scheme: light) {
+  :root {
+    --color-text-primary: #1e293b;
+    --color-text-secondary: #64748b;
+    --color-text-muted: #94a3b8;
+    --color-bg-card: rgba(255, 255, 255, 0.85);
+    --color-bg-input: rgba(0, 0, 0, 0.05);
+  }
+}

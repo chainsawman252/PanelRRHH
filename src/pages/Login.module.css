@@ -1,0 +1,732 @@
+:root {
+  /* Paleta de colores verde-turquesa / branding */
+  --color-primary: #073519; /* Verde oscuro (principal) */
+  --color-primary-dark: #125e41; /* Verde más intenso */
+  --color-primary-light: #0e635a; /* Verde más claro / turquesa profundo */
+  
+  /* Neutros / grises elegantes */
+  --color-bg: #0f172a; /* Azul marino muy oscuro (fondo principal) */
+  --color-bg-2: #1a2238; /* Azul grisáceo (en gradientes de fondo) */
+  --color-surface: #1e293b; /* Azul gris oscuro (cards, headers) */
+  --color-border: #334155; /* Gris azulado (bordes) */
+  --color-text-primary: #f8fafc; /* Blanco casi puro (texto principal) */
+  --color-text-secondary: #94a3b8; /* Gris claro (texto secundario) */
+  --color-text-muted: #64748b; /* Gris medio (texto deshabilitado) */
+  
+  /* Estados (feedback e interacciones) */
+  --color-hover: rgba(14, 99, 90, 0.1); /* Verde agua suave (hover) */
+  --color-active: rgba(14, 99, 90, 0.2); /* Verde agua más intenso (active) */
+  
+  /* Colores de alertas / semáforo */
+  --color-error: #ef4444; /* Rojo brillante (errores) */
+  --color-success: #10b981; /* Verde esmeralda (éxitos) */
+  --color-warning: #f59e0b; /* Naranja mostaza (advertencias) */
+  
+  /* Otros usados en degradados especiales */
+  --color-dark-green-black: #010f0b; /* Negro con tinte verde (confirmación de fichaje) */
+  --color-gray-green-light: #95afa7; /* Verde grisáceo claro */
+  --color-turq-1: #0f766e; /* Variaciones de turquesa/verde claro */
+  --color-turq-2: #11a394;
+  --color-turq-3: #34d399;
+  --color-green-dark-1: #059669; /* Verdes oscuros (hover de botón success) */
+  --color-green-dark-2: #047857;
+  --color-red-dark-1: #dc2626; /* Rojos oscuros (hover de botón error) */
+  --color-red-dark-2: #b91c1c;
+
+  /* Mapeo de variables para componentes */
+  --bg: var(--color-bg);
+  --card-bg: rgba(30, 41, 59, 0.72);
+  --glass-border: var(--color-border);
+  --primary: var(--color-primary);
+  --primary-light: var(--color-primary-light);
+  --muted: var(--color-text-muted);
+  --text: var(--color-text-primary);
+  --text-secondary: var(--color-text-secondary);
+  --border: var(--color-border);
+  --shadow: 0 12px 36px rgba(2, 6, 23, 0.6);
+  --shadow-hover: 0 16px 46px rgba(2, 6, 23, 0.7);
+  --error: var(--color-error);
+  --input-bg: rgba(255, 255, 255, 0.02);
+  --input-border: rgba(255, 255, 255, 0.04);
+  --input-focus: var(--color-hover);
+  --button-gradient-start: var(--color-primary-light);
+  --button-gradient-end: var(--color-primary-dark);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: linear-gradient(180deg, var(--color-bg), var(--color-bg-2));
+    --card-bg: rgba(30, 41, 59, 0.72);
+    --glass-border: rgba(255, 255, 255, 0.04);
+    --primary: var(--color-primary);
+    --primary-light: var(--color-primary-light);
+    --muted: var(--color-text-muted);
+    --text: var(--color-text-primary);
+    --text-secondary: var(--color-text-secondary);
+    --border: var(--color-border);
+    --shadow: 0 14px 40px rgba(2, 6, 23, 0.7);
+    --shadow-hover: 0 18px 54px rgba(2, 6, 23, 0.8);
+    --input-bg: rgba(255, 255, 255, 0.02);
+    --input-border: rgba(255, 255, 255, 0.04);
+    --input-focus: rgba(14, 99, 90, 0.18);
+    --button-gradient-start: var(--color-primary-light);
+    --button-gradient-end: var(--color-primary-dark);
+  }
+}
+
+.authPage {
+  min-height: 100dvh; /* dynamic viewport for mobile browsers */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg);
+  padding: clamp(24px, 5vh, 48px) 20px;
+  padding-inline: max(16px, env(safe-area-inset-left)) max(16px, env(safe-area-inset-right));
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  position: relative;
+  overflow: hidden;
+  overscroll-behavior: contain;
+  touch-action: manipulation;
+}
+
+/* Fondo de olas de mar */
+.authPage::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: 
+    radial-gradient(ellipse at 50% 0%, rgba(14, 99, 90, 0.05) 0%, transparent 30%),
+    linear-gradient(45deg, 
+      rgba(14, 99, 90, 0.02) 0%, 
+      rgba(14, 99, 90, 0.01) 25%, 
+      transparent 50%, 
+      rgba(14, 99, 90, 0.01) 75%, 
+      rgba(14, 99, 90, 0.02) 100%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Logo styling */
+.logo {
+  width: 120px;
+  height: 120px;
+  object-fit: contain;
+  display: block;
+  margin-bottom: 8px;
+  border-radius: 8px; /* keep slight rounding */
+  box-shadow: 0 12px 36px rgba(2,6,23,0.18);
+  background: transparent; /* show the image as-is */
+}
+
+@media (max-width: 480px) {
+  .logo {
+    width: 88px;
+    height: 88px;
+  }
+}
+
+/* Compact logo box for the login card header */
+.logoBox {
+  width: 56px;
+  height: 56px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, var(--button-gradient-start), var(--button-gradient-end));
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.logoImg {
+  width: 72%;
+  height: 72%;
+  object-fit: contain;
+  display: block;
+}
+
+/* Ondas animadas */
+.authPage::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: 
+    radial-gradient(ellipse at 20% 80%, rgba(14, 99, 90, 0.03) 0%, transparent 15%),
+    radial-gradient(ellipse at 80% 20%, rgba(14, 99, 90, 0.02) 0%, transparent 15%),
+    radial-gradient(ellipse at 40% 60%, rgba(14, 99, 90, 0.01) 0%, transparent 10%),
+    radial-gradient(ellipse at 60% 40%, rgba(14, 99, 90, 0.01) 0%, transparent 10%);
+  animation: waves 20s ease-in-out infinite;
+  pointer-events: none;
+  z-index: 0;
+}
+
+@keyframes waves {
+  0%, 100% {
+    transform: translateX(0) translateY(0);
+  }
+  25% {
+    transform: translateX(-10px) translateY(-5px);
+  }
+  50% {
+    transform: translateX(0) translateY(-10px);
+  }
+  75% {
+    transform: translateX(10px) translateY(-5px);
+  }
+}
+
+.authCard {
+  width: 100%;
+  max-width: 520px;
+  padding: 40px;
+  border-radius: 20px;
+  background: var(--card-bg);
+  box-shadow: var(--shadow);
+  border: 1px solid var(--glass-border);
+  backdrop-filter: blur(14px) saturate(140%);
+  position: relative;
+  z-index: 1;
+  transform: translateZ(0);
+  will-change: transform, opacity;
+  animation: cardAppear 420ms cubic-bezier(0.2, 0.9, 0.3, 1) both;
+  transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* Fallback when backdrop-filter is unsupported */
+@supports not ((-webkit-backdrop-filter: blur(10px)) or (backdrop-filter: blur(10px))) {
+  .authCard {
+    background: rgba(30, 41, 59, 0.95);
+  }
+}
+
+/* Decorative border with mask (WebKit + standard) */
+.authCard::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: 22px;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.04));
+  -webkit-mask: linear-gradient(#fff, #fff) content-box, linear-gradient(#fff, #fff);
+  -webkit-mask-repeat: no-repeat, no-repeat;
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#fff, #fff) content-box, linear-gradient(#fff, #fff);
+  mask-repeat: no-repeat, no-repeat;
+  mask-composite: exclude;
+  padding: 1px;
+  z-index: -1;
+  pointer-events: none;
+}
+
+.authCard:hover {
+  transform: translateY(-4px) scale(1.002);
+  box-shadow: var(--shadow-hover);
+}
+
+.pageTitle {
+  margin: 0 0 24px 0;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--text);
+  letter-spacing: -0.4px;
+  line-height: 1.3;
+  text-align: center;
+  opacity: 0;
+  animation: textAppear 420ms ease-out 140ms both;
+}
+
+.formColumn {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  /* Ensure flex children can shrink properly in Safari/WebKit */
+  min-width: 0;
+}
+
+.formInput {
+  width: 100%;
+  max-width: 100%;
+  min-width: 0; /* Fix Safari overflow inside flex containers */
+  box-sizing: border-box; /* Include padding/border in width */
+  -webkit-appearance: none;
+  appearance: none;
+  padding: 14px 16px;
+  border-radius: 12px;
+  border: 1px solid var(--input-border);
+  background: var(--input-bg);
+  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  font-size: 16px; /* avoid iOS zoom */
+  color: var(--text);
+  outline: none;
+  position: relative;
+  z-index: 1;
+  backdrop-filter: blur(6px);
+  will-change: transform, box-shadow;
+}
+
+.formInput::placeholder {
+  color: var(--muted);
+  transition: color 0.3s ease;
+}
+
+.formInput:hover:not(:focus) {
+  transform: translateY(-0.5px);
+  border-color: var(--color-text-secondary);
+}
+
+.formInput:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px var(--input-focus);
+  transform: translateY(-1px);
+  background: var(--input-bg);
+}
+
+.formInput:focus::placeholder {
+  color: var(--color-text-secondary);
+  opacity: 0.7;
+}
+
+/* Visible focus for keyboard users */
+.formInput:focus-visible {
+  outline: 3px solid var(--input-focus);
+  outline-offset: 3px;
+}
+
+/* Input wrapper with toggle button (eye) */
+.inputWithToggle {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.inputWithToggle .formInput {
+  padding-right: 44px; /* space for the toggle */
+  flex: 1 1 auto; /* Allow input to size correctly in Safari */
+  min-width: 0; /* Prevent overflow in WebKit */
+}
+
+.pwToggle {
+  position: absolute;
+  right: 8px;
+  background: transparent;
+  border: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  cursor: pointer;
+  color: var(--text-secondary);
+  transition: background 0.18s ease, color 0.18s ease, transform 0.12s ease;
+  z-index: 2;
+}
+
+.pwToggle:hover {
+  background: rgba(255,255,255,0.02);
+  color: var(--text);
+  transform: translateY(-1px);
+}
+
+.pwToggle:active {
+  transform: translateY(0);
+}
+
+.pwToggle:focus-visible {
+  outline: 3px solid rgba(14,99,90,0.14);
+  outline-offset: 3px;
+}
+
+.btn {
+  padding: 14px 20px;
+  border-radius: 12px;
+  border: none;
+  background: linear-gradient(135deg, var(--button-gradient-start), var(--button-gradient-end));
+  color: #fff;
+  cursor: pointer;
+  font-weight: 700;
+  font-size: 1rem;
+  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  box-shadow: 0 8px 28px rgba(14, 99, 90, 0.12);
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+  will-change: transform, box-shadow;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Subtle shimmer effect using ::before */
+.btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, 
+    transparent, 
+    rgba(255, 255, 255, 0.2), 
+    transparent);
+  transition: left 0.6s ease;
+  z-index: -1;
+}
+
+.btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-hover);
+  background: linear-gradient(135deg, var(--color-turq-2), var(--color-turq-1));
+}
+
+.btn:hover:not(:disabled)::before {
+  left: 100%;
+}
+
+.btn:active:not(:disabled) {
+  transform: translateY(0) scale(0.98);
+  box-shadow: 0 4px 14px rgba(14, 99, 90, 0.14);
+}
+
+.btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.btn:focus-visible {
+  outline: 3px solid rgba(14, 99, 90, 0.18);
+  outline-offset: 3px;
+}
+
+.error {
+  color: var(--error);
+  margin-top: 8px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  opacity: 0;
+  transform: translateY(-8px);
+  animation: errorAppear 360ms ease-out 100ms both;
+}
+
+.success {
+  color: var(--color-success);
+  margin-top: 8px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  opacity: 0;
+  transform: translateY(-8px);
+  animation: errorAppear 360ms ease-out 100ms both;
+}
+
+.warning {
+  color: var(--color-warning);
+  margin-top: 8px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  opacity: 0;
+  transform: translateY(-8px);
+  animation: errorAppear 360ms ease-out 100ms both;
+}
+
+.actionsRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 16px;
+  gap: 12px;
+}
+
+.linkButton {
+  background: transparent;
+  border: none;
+  color: var(--primary);
+  cursor: pointer;
+  padding: 8px 0;
+  font-size: 0.95rem;
+  font-weight: 600;
+  position: relative;
+  z-index: 1;
+  transition: all 0.2s ease;
+}
+
+.linkButton::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: var(--primary);
+  transition: width 0.3s ease;
+  z-index: -1;
+}
+
+.linkButton:hover {
+  color: var(--color-turq-2);
+}
+
+.linkButton:hover::after {
+  width: 100%;
+}
+
+.linkButton:focus-visible {
+  outline: 3px solid rgba(14, 99, 90, 0.14);
+  outline-offset: 3px;
+}
+
+/* Animations */
+@keyframes cardAppear {
+  from {
+    opacity: 0;
+    transform: translateY(20px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes textAppear {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes errorAppear {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+/* Responsive tweaks */
+@media (max-width: 480px) {
+  .authCard {
+    padding: 32px 24px;
+    border-radius: 18px;
+    margin: 0 16px;
+  }
+  
+  .pageTitle {
+    font-size: 1.3rem;
+    margin-bottom: 20px;
+  }
+  
+  .formInput {
+    padding: 12px 14px;
+  }
+  
+  .btn {
+    padding: 12px 16px;
+  }
+  
+  .actionsRow {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+  }
+  
+  .linkButton {
+    align-self: center;
+  }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .authPage::after {
+    animation: none;
+  }
+  
+  .authCard, .pageTitle, .error, .success, .warning {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+  
+  .formInput, .btn, .linkButton {
+    transition: none;
+  }
+  
+  .btn::before {
+    display: none;
+  }
+  
+  .formInput:hover:not(:focus) {
+    transform: none;
+  }
+  
+  .btn:hover:not(:disabled) {
+    transform: none;
+  }
+  
+  .btn:active:not(:disabled) {
+    transform: none;
+  }
+  
+  .authCard:hover {
+    transform: none;
+  }
+}
+
+/* Forced colors / high contrast */
+@media (forced-colors: active) {
+  .authPage::before,
+  .authPage::after {
+    display: none;
+  }
+  
+  .authCard {
+    border: 2px solid ButtonText;
+    background: ButtonFace;
+    box-shadow: none;
+  }
+  .formInput {
+    border: 1px solid ButtonText;
+    background: Field;
+    color: FieldText;
+  }
+  .btn {
+    border: 2px solid ButtonText;
+    background: ButtonFace;
+    color: ButtonText;
+  }
+  .linkButton {
+    color: LinkText;
+  }
+}
+
+/* Generic enter/exit animation utility classes */
+:root { --anim-timing: 360ms cubic-bezier(.2,.9,.3,1); }
+
+.fade-enter { opacity: 0; transform: translateY(10px) scale(.995); }
+.fade-enter-active { opacity: 1; transform: translateY(0) scale(1); transition: opacity var(--anim-timing), transform var(--anim-timing); }
+
+.fade-exit { opacity: 1; transform: translateY(0) scale(1); }
+.fade-exit-active { opacity: 0; transform: translateY(10px) scale(.995); transition: opacity 260ms ease, transform 260ms ease; }
+
+@media (prefers-reduced-motion: reduce){
+  .fade-enter, .fade-enter-active, .fade-exit, .fade-exit-active { transition: none !important; animation: none !important; }
+}
+
+/* Focus styles for accessibility */
+.authCard:focus-within .formInput:focus {
+  box-shadow: 0 0 0 3px Highlight;
+}
+
+.btn:focus,
+.linkButton:focus {
+  outline: 2px solid Highlight;
+  outline-offset: 2px;
+}
+
+/* Smooth scrolling behavior */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Enhanced glass effect */
+.authCard {
+  background: var(--card-bg);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  backdrop-filter: blur(20px) saturate(180%);
+}
+
+/* Micro-interactions */
+.formInput {
+  will-change: transform, box-shadow;
+}
+
+.btn {
+  will-change: transform, box-shadow;
+}
+
+/* Enhanced focus states */
+*:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+  border-radius: inherit;
+}
+
+/* Subtle parallax effect on page */
+.authPage:hover .authCard {
+  transform: translateY(-2px) scale(1.001);
+}
+
+/* Loading animation for buttons */
+.btn.loading {
+  position: relative;
+  pointer-events: none;
+}
+
+.btn.loading::after {
+  content: '';
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  margin: auto;
+  border: 2px solid transparent;
+  border-top-color: #ffffff;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  right: 12px;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Input validation states */
+.formInput.valid {
+  border-color: var(--color-success);
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
+}
+
+.formInput.invalid {
+  border-color: var(--color-error);
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
+}
+
+/* Button pulse animation */
+.btn.pulse {
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(14, 99, 90, 0.4);
+  }
+  70% {
+    box-shadow: 0 0 0 10px rgba(14, 99, 90, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(14, 99, 90, 0);
+  }
+}
