@@ -301,59 +301,66 @@ export default function Dashboard() {
   };
 
   const exportPDF = async (rows: Fichaje[]) => {
-    const { default: jsPDF } = await import('jspdf');
-    const { default: autoTable } = await import('jspdf-autotable');
-    const doc = new jsPDF('landscape', 'mm');
-
-    // Header with logo and company info
-    const loadImage = (src: string) => new Promise<HTMLImageElement>((resolve, reject) => {
-      const img = new Image();
-      img.crossOrigin = 'anonymous';
-      img.onload = () => resolve(img);
-      img.onerror = reject;
-      img.src = src;
-    });
-
-    let x = 14, y = 10;
     try {
-      const img = await loadImage(kronosLogo);
-      const targetH = 14; // mm
-      const ratio = img.width / img.height;
-      const targetW = Math.min(28, targetH * ratio);
-      doc.addImage(img, 'PNG', x, y, targetW, targetH);
-      x += targetW + 6;
-    } catch {}
+      const { default: jsPDF } = await import('jspdf');
+      const { default: autoTable } = await import('jspdf-autotable');
+      const doc = new jsPDF('landscape', 'mm');
 
-    doc.setFontSize(14);
-    const title = companyName ? `Empresa: ${companyName}` : 'Empresa';
-    doc.text(title, x, y + 6);
-    doc.setFontSize(10);
-    if (companyId) doc.text(`ID: ${companyId}`, x, y + 12);
-    doc.text(`Fecha de exportación: ${new Date().toLocaleString('es-SV')}`, x, y + 18);
+      // Header with logo and company info
+      const loadImage = (src: string) => new Promise<HTMLImageElement>((resolve, reject) => {
+        const img = new Image();
+        img.crossOrigin = 'anonymous';
+        img.onload = () => resolve(img);
+        img.onerror = reject;
+        img.src = src;
+      });
 
-    // Table
-    const head = [[
-      'Empleado', 'Email', 'Tipo', 'Fecha', 'Autorizada', 'Trabajado ese día'
-    ]];
-    const body = rows.map(r => ([
-      r.usuario?.nombre || '',
-      r.usuario?.email || '',
-      r.tipo || '',
-      r.created_at ? new Date(r.created_at).toLocaleString('es-SV') : '',
-      r.ubicacion_autorizada ? 'Sí' : 'No',
-      minutesToHoursString(getMinutesForFichaje(r))
-    ]));
+      let x = 14, y = 10;
+      try {
+        const img = await loadImage(kronosLogo);
+        const targetH = 14; // mm
+        const ratio = img.width / img.height;
+        const targetW = Math.min(28, targetH * ratio);
+        doc.addImage(img, 'PNG', x, y, targetW, targetH);
+        x += targetW + 6;
+      } catch (e) {
+        console.warn('No se pudo cargar el logo:', e);
+      }
 
-    autoTable(doc, {
-      head,
-      body,
-      styles: { fontSize: 9 },
-      headStyles: { fillColor: [33, 150, 243] },
-      startY: y + 24,
-      theme: 'striped',
-      margin: { left: 14, right: 14 }
-    });
-    doc.save(`fichajes_${Date.now()}.pdf`);
+      doc.setFontSize(14);
+      const title = companyName ? `Empresa: ${companyName}` : 'Empresa';
+      doc.text(title, x, y + 6);
+      doc.setFontSize(10);
+      if (companyId) doc.text(`ID: ${companyId}`, x, y + 12);
+      doc.text(`Fecha de exportación: ${new Date().toLocaleString('es-SV')}`, x, y + 18);
+
+      // Table
+      const head = [[
+        'Empleado', 'Email', 'Tipo', 'Fecha', 'Autorizada', 'Trabajado ese día'
+      ]];
+      const body = rows.map(r => ([
+        r.usuario?.nombre || '',
+        r.usuario?.email || '',
+        r.tipo || '',
+        r.created_at ? new Date(r.created_at).toLocaleString('es-SV') : '',
+        r.ubicacion_autorizada ? 'Sí' : 'No',
+        minutesToHoursString(getMinutesForFichaje(r))
+      ]));
+
+      autoTable(doc, {
+        head,
+        body,
+        styles: { fontSize: 9 },
+        headStyles: { fillColor: [33, 150, 243] },
+        startY: y + 24,
+        theme: 'striped',
+        margin: { left: 14, right: 14 }
+      });
+      doc.save(`fichajes_${Date.now()}.pdf`);
+    } catch (error) {
+      console.error('Error al exportar PDF:', error);
+      alert('Error al exportar el PDF. Por favor, intenta de nuevo.');
+    }
   };
 
   // -- Chart / range export helpers --
