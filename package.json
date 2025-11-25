@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.1.0",
   "type": "module",
-  "homepage": "https://chainsawman252.github.io/PanelWeb",
+  "homepage": "https://chainsawman252.github.io/PanelRRHH",
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
